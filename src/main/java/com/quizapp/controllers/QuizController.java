@@ -49,6 +49,7 @@ public class QuizController {
 		List<Question> questions = questionService.getAllQuestionsBySubject(subject);
 		Quiz quiz = quizRepository.findBySubject(subject);
 		System.out.println("111111");
+
 //		quiz = quizRepository.saveAndFlush(quiz);
 
 		System.out.println("0000000000000");

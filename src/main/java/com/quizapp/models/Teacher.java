@@ -6,10 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name="teachers", schema = "public")
 public class Teacher {
+
+
 	@Id
 	@Column(name = "teacher_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

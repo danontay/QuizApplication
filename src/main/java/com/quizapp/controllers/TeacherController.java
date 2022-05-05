@@ -22,25 +22,26 @@ import com.quizapp.repositories.OptionRepository;
 
 @Controller
 public class TeacherController {
+	public static List<Long> subjectIds;
 
-	private TeacherService teacherService;
+	private TeacherServiceImpl teacherService;
 
 	@Autowired
-	private StudentService studentService;
+	private StudentServiceImpl studentService;
 
 	@Autowired
 	private ScheduleRepository scheduleRepository;
 
 	@Autowired
-	private SessionService sessionService;
+	private SessionServiceImpl sessionService;
 
 	@Autowired
-	private QuestionService questionService;
+	private QuestionServiceImpl questionService;
 	
 	@Autowired
 	private OptionRepository optionRepository;
 
-	public TeacherController(TeacherService teacherService) {
+	public TeacherController(TeacherServiceImpl teacherService) {
 		super();
 		this.teacherService = teacherService;
 	}

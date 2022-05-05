@@ -2,6 +2,7 @@ package com.quizapp.controllers;
 
 import java.util.List;
 
+import com.quizapp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,21 +18,18 @@ import com.quizapp.models.Student;
 import com.quizapp.models.Teacher;
 import com.quizapp.repositories.AdminRepository;
 import com.quizapp.repositories.StudentRepository;
-import com.quizapp.services.AdminService;
-import com.quizapp.services.StudentService;
-import com.quizapp.services.TeacherService;
 
 @Controller
 public class AdminController {
 
 	@Autowired
-	private StudentService studentService;
+	private StudentServiceImpl studentService;
 
 	@Autowired
-	private AdminService adminService;
+	private AdminServiceImpl adminService;
 	
 	@Autowired
-	private TeacherService teacherService;
+	private TeacherServiceImpl teacherService;
 
 	@GetMapping("/admin/dashboard")
 	public String showAdminDashboard(Model model) {

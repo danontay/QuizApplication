@@ -1,5 +1,6 @@
 package com.quizapp.controllers;
 
+import com.quizapp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,21 +10,18 @@ import com.quizapp.dto.UserDTO;
 import com.quizapp.models.Admin;
 import com.quizapp.models.Student;
 import com.quizapp.models.Teacher;
-import com.quizapp.services.AdminService;
-import com.quizapp.services.StudentService;
-import com.quizapp.services.TeacherService;
 
 @Controller
 public class RegistrationController {
 
 	@Autowired
-	private StudentService studentService;
+	private StudentServiceImpl studentService;
 
 	@Autowired
-	private AdminService adminService;
+	private AdminServiceImpl adminService;
 
 	@Autowired
-	private TeacherService teacherService;
+	private TeacherServiceImpl teacherService;
 
 	@PostMapping("/register")
 	public String registerNewUser(@ModelAttribute UserDTO userDto) {

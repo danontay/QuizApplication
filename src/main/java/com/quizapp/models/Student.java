@@ -34,7 +34,7 @@ public class Student {
 	@Column(name="student_role")
 	private String role;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="student")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="student")
 	private Session session;
 	
 	public Long getId() {

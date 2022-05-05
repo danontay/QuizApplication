@@ -2,6 +2,7 @@ package com.quizapp.controllers;
 
 import com.quizapp.models.Question;
 import com.quizapp.services.QuestionService;
+import com.quizapp.services.QuestionServiceImpl;
 import com.quizapp.services.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ import java.util.List;
 public class StudentController {
 
 	@Autowired
-	private QuestionService questionService;
+	private QuestionServiceImpl questionService;
 
 	@Autowired
 	private StudentServiceImpl studentService;

@@ -2,6 +2,7 @@ package com.quizapp.controllers;
 
 import com.quizapp.controllers.ContextController;
 import com.quizapp.repositories.StudentRepository;
+import com.quizapp.services.TeacherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,7 @@ public class LoginController {
 	private AdminRepository adminRepository;
 	
 	@Autowired
-	private TeacherService teacherService;
+	private TeacherServiceImpl teacherService;
 
  	@GetMapping("/admin")
 	public String showAdminLoginForm(Model model) {

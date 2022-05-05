@@ -3,6 +3,11 @@ package com.quizapp.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.quizapp.dto.ScheduleDTO;
+import com.quizapp.dto.ScheuduleDTO1;
+import com.quizapp.models.*;
+import com.quizapp.repositories.ScheduleRepository;
+import com.quizapp.services.*;
 import org.aspectj.weaver.loadtime.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,18 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.quizapp.dto.QuestionsDTO;
-import com.quizapp.models.Admin;
-import com.quizapp.models.Option;
-import com.quizapp.models.Question;
-import com.quizapp.models.Session;
-import com.quizapp.models.Student;
-import com.quizapp.models.Teacher;
 import com.quizapp.repositories.OptionRepository;
-import com.quizapp.services.QuestionService;
-import com.quizapp.services.QuizService;
-import com.quizapp.services.SessionService;
-import com.quizapp.services.StudentService;
-import com.quizapp.services.TeacherService;
 
 @Controller
 public class TeacherController {
@@ -33,6 +27,9 @@ public class TeacherController {
 
 	@Autowired
 	private StudentService studentService;
+
+	@Autowired
+	private ScheduleRepository scheduleRepository;
 
 	@Autowired
 	private SessionService sessionService;
@@ -60,6 +57,19 @@ public class TeacherController {
 		model.addAttribute("allSessions", sessions);
 		model.addAttribute("teacher", teacherService.getTeacherById(ContextController.getTeacher().getId()));
 		return "teacher-dashboard";
+	}
+
+	@GetMapping("/teacher/schedule/list")
+	public String showAllSchedulePage(Model model) {
+		System.out.println("qwert");
+		List<ScheduleDTO> schedules = scheduleRepository.findAllSchedule();
+//		List<Schedule> schedules = scheduleRepository.findAll();
+		System.out.println(schedules.size());
+
+		model.addAttribute("schedules", schedules);
+		model.addAttribute("teacher", teacherService.getTeacherById(ContextController.getTeacher().getId()));
+
+		return "teacher-schedule";
 	}
 
 	@GetMapping("/teacher/edit/{id}")
@@ -196,7 +206,7 @@ public class TeacherController {
 
 		return "teachers-questions-list";
 	}
-	
+
 	
 	@GetMapping("/teacher/question/delete/{id}")
 	public String deleteQuestion(@PathVariable Long id, Model model) {

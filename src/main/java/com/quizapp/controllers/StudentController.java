@@ -1,5 +1,7 @@
 package com.quizapp.controllers;
 
+import com.quizapp.models.Question;
+import com.quizapp.services.QuestionService;
 import com.quizapp.services.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.quizapp.models.Student;
 import com.quizapp.services.StudentService;
+
+import java.util.List;
+
 @Controller
 public class StudentController {
+
+	@Autowired
+	private QuestionService questionService;
 
 	@Autowired
 	private StudentServiceImpl studentService;
@@ -45,7 +53,22 @@ public class StudentController {
 		model.addAttribute("student", ContextController.getStudent());
 		return "student-dashboard";
 	}
-	
+
+	@GetMapping("/student/schedule/list")
+	public String showAllQuestionsPage(Model model) {
+		List<Question> scienceQuestions = questionService.getAllQuestionsBySubject("science");
+		List<Question> mathsQuestions = questionService.getAllQuestionsBySubject("maths");
+		List<Question> physicsQuestions = questionService.getAllQuestionsBySubject("physics");
+		List<Question> englishQuestions = questionService.getAllQuestionsBySubject("english");
+		model.addAttribute("scienceQuestions", scienceQuestions);
+		model.addAttribute("mathsQuestions", mathsQuestions);
+		model.addAttribute("englishQuestions", englishQuestions);
+		model.addAttribute("physicsQuestions", physicsQuestions);
+
+		return "teachers-questions-list";
+	}
+
+
 	@GetMapping("/student/edit/{id}")
 	public String showUpdateStudentPage(@PathVariable Long id, Model model) {
 		Student student = studentService.getStudentById(id);

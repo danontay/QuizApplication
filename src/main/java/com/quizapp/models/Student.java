@@ -5,9 +5,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "students", schema = "public")
 public class Student {
-	
+
 	@Id
 	@Column(name = "student_id")
+	@GeneratedValue(
+			strategy = GenerationType.AUTO,
+			generator = "student_generator"
+	)
+	@SequenceGenerator(
+			name = "student_generator",
+			sequenceName = "student_seq", allocationSize = 1
+	)
 
 	private Long id;
 	

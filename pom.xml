@@ -24,6 +24,7 @@
 <!--			<artifactId>spring-security-config</artifactId>-->
 <!--			<version>5.6.3</version>-->
 <!--		</dependency>-->
+
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -87,7 +88,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>s
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+		</dependency>3
 	</dependencies>
 
 	<build>

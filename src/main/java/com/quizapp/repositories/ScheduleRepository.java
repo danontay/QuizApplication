@@ -13,8 +13,9 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     @Query(value = "SELECT new com.quizapp.dto.ScheduleDTO(s.subjectName, sch.date, sch.room, g.groupName, t.firstName, t.lastName) from Schedule sch " +
             " join Subject s on s.subjectId= sch.subjectId " +
             "join sch.group g " +
-            "join Teacher t ON t.Id = sch.teacherId " )
-    List<ScheduleDTO> findAllSchedule();
+            "join Teacher t ON t.Id = sch.teacherId " +
+            "where sch.teacherId = :id" )
+    List<ScheduleDTO> findAllSchedule(Long id);
 
     @Procedure("schedule_info")
     List<ScheuduleDTO1> getSchedule();

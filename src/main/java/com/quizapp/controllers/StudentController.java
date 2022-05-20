@@ -1,9 +1,8 @@
 package com.quizapp.controllers;
 
 import com.quizapp.models.Question;
-import com.quizapp.services.QuestionService;
-import com.quizapp.services.QuestionServiceImpl;
-import com.quizapp.services.StudentServiceImpl;
+import com.quizapp.models.Subject;
+import com.quizapp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.quizapp.models.Student;
-import com.quizapp.services.StudentService;
 
 import java.util.List;
 
@@ -25,6 +23,12 @@ public class StudentController {
 
 	@Autowired
 	private StudentServiceImpl studentService;
+
+	@Autowired
+	private SessionServiceImpl sessionService;
+
+	@Autowired
+	private SubjectServiceImpl subjectService;
 
 
 	public StudentController(StudentServiceImpl studentService) {
@@ -51,7 +55,11 @@ public class StudentController {
 
 	@GetMapping("/student/dashboard")
 	public String showStudentDashboard(Model model) {
-		model.addAttribute("student", ContextController.getStudent());
+		model.addAttribute("student", CurrentUserController.getStudent());
+		List<Subject> subjects = subjectService.findAll();
+		subjects.forEach(System.out::println);
+
+		model.addAttribute("subjects", subjects);
 		return "student-dashboard";
 	}
 
@@ -80,6 +88,7 @@ public class StudentController {
 	@GetMapping("/student/delete/{id}")
 	public String deleteStudent(@PathVariable Long id, Model model) {
 		studentService.deleteStudentById(id);
+		sessionService.deleteByStudentId(id);
 		return "redirect:/admin/dashboard";
 	}
 

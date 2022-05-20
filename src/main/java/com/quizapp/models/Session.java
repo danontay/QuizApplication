@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -17,7 +18,7 @@ public class Session {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id")
 	private Student student;
 
@@ -41,13 +42,12 @@ public class Session {
 	public Session(){	
 	}
 
-	public Session(Student student, Quiz quiz, Calendar start_time, Calendar end_time, int score) {
-		super();
-		this.student = student;
-		this.quiz = quiz;
-		this.start_time = start_time;
-		this.end_time = end_time;
-		this.score = score;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Student getStudent() {
@@ -89,22 +89,6 @@ public class Session {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getStudentName() {
-		return studentName;
-	}
-
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
 
 	public Long getStudentId() {
 		return studentId;
@@ -113,7 +97,14 @@ public class Session {
 	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
 	}
-	
-	private String studentName;
-	
+
+	public Session(Long id, Student student, Quiz quiz, Calendar start_time, Calendar end_time, double score, Long studentId) {
+		this.id = id;
+		this.student = student;
+		this.quiz = quiz;
+		this.start_time = start_time;
+		this.end_time = end_time;
+		this.score = score;
+		this.studentId = studentId;
+	}
 }

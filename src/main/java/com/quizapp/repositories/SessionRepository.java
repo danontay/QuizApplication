@@ -8,4 +8,5 @@ import com.quizapp.models.Session;
 
 public interface SessionRepository extends JpaRepository<Session, Long>{
 	Session findByid(Long id);
+	Session deleteByStudentId(Long id);
 }

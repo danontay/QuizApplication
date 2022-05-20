@@ -32,14 +32,16 @@ public class RegistrationController {
 			student.setUsername(userDto.getUsername());
 			student.setPassword(userDto.getPassword());
 			studentService.saveStudent(student);
-		} else if (userDto.getUser_role().equalsIgnoreCase("admin")) {
+		}
+		else if (userDto.getUser_role().equalsIgnoreCase("admin")) {
 			Admin admin = new Admin();
 			admin.setFirstName(userDto.getFirstName());
 			admin.setLastName(userDto.getLastName());
 			admin.setUsername(userDto.getUsername());
 			admin.setPassword(userDto.getPassword());
 			adminService.saveAdmin(admin);
-		} else if (userDto.getUser_role().equalsIgnoreCase("teacher")) {
+		}
+		else if (userDto.getUser_role().equalsIgnoreCase("teacher")) {
 			Teacher teacher = new Teacher();
 			teacher.setFirstName(userDto.getFirstName());
 			teacher.setLastName(userDto.getLastName());

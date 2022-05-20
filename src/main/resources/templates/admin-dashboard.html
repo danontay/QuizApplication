@@ -67,7 +67,23 @@
                     <span>Add Users</span></a>
             </li>
 
-             <!-- Nav Item - logout -->
+             <!-- Department List-->
+             <li class="nav-item">
+                <a class="nav-link" href="/admin/departments">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    Department List
+                </a>
+            </li>
+
+            <!-- Faculty List-->
+             <li class="nav-item">
+                <a class="nav-link" href="/admin/faculties" >
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    Faculty List
+                </a>
+            </li>
+
+            <!-- Nav Item - logout -->
              <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt "></i>
@@ -207,7 +223,7 @@
                                         <tr th:each="student: ${students}">
                                         	<td th:text="${student.username}"></td>
                                             <td th:text="${student.firstName}"></td>
-<!--                                            <td th:text="${student.user_role}"></td>-->
+                                            <td th:text="${student.role}"></td>
                                             <td>
                                             <a th:href="@{/student/edit/{id}(id=${student.id})}" class="btn btn-primary">Update</a> 
                                             <a th:href="@{/student/delete/{id}(id=${student.id})}" class="btn btn-danger">Delete</a> 
@@ -249,7 +265,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Virtusa 2022</span>
+                        <span>University</span>
                     </div>
                 </div>
             </footer>

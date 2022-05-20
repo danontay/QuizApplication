@@ -1,9 +1,6 @@
 package com.quizapp.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "subjects", schema = "public")
@@ -13,7 +10,15 @@ public class Subject {
     private Long subjectId;
 
     @Column(name = "subject_name")
-    private String subjectName;
+    public String subjectName;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "credits")
+    private String credits;
+
+
 
     public Long getId() {
         return subjectId;
@@ -22,4 +27,7 @@ public class Subject {
     public void setId(Long id) {
         this.subjectId = id;
     }
+
+
+
 }

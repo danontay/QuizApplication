@@ -34,5 +34,8 @@ public class SessionServiceImpl implements SessionService{
 		return sessionRepository.findByid(id);
 	}
 
-	
+	@Override
+	public Session deleteByStudentId(Long id) {
+		return sessionRepository.deleteByStudentId(id);
+	}
 }

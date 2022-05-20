@@ -9,5 +9,6 @@ public interface SessionService{
 	List<Session> getAllSessions();
 	Session saveSession(Session session);
 	Session findSessionById(Long id);
+	Session deleteByStudentId(Long id);
 	
 }

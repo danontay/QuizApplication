@@ -165,12 +165,10 @@
                     </ul>
 
                 </nav>
-                <!-- End of Topbar -->
-             
-                <!-- Begin Page Content -->
+
                 <div class="container-fluid">
                     <form th:action="@{/quiz/science/submit}" th:object="${answersDto}" method="POST">
-                    <div th:object"${questions}">
+                    <div th:object = "${questions}">
 <div class="card">
 <div class="card-body ">
 <br>
@@ -198,21 +196,11 @@
 	
 </div>
 </div>
-		
-            
 				<br>
 				<button type="submit" class="btn btn-primary btn-user">Finish Attempt</button>
                     </div>
                     </form>
-                    
-                    
-                   
-                    
-                    
                 </div>
-
-
-
             </div>
             <!-- End of Main Content -->
 
@@ -220,7 +208,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Virtusa 2022</span>
+                        <span>University</span>
                     </div>
                 </div>
             </footer>

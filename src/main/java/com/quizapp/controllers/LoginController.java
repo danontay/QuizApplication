@@ -1,6 +1,5 @@
 package com.quizapp.controllers;
 
-import com.quizapp.controllers.ContextController;
 import com.quizapp.repositories.StudentRepository;
 import com.quizapp.services.TeacherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import com.quizapp.models.Admin;
 import com.quizapp.models.Student;
 import com.quizapp.models.Teacher;
 import com.quizapp.repositories.AdminRepository;
-import com.quizapp.services.TeacherService;
 
 @Controller
 @RequestMapping("/login")
@@ -57,7 +55,7 @@ public class LoginController {
 		System.out.println("something");
  		Student savedStudent = studentRepository.getStudentByUsername(student.getUsername());
  		if(savedStudent != null) {
- 			 ContextController.setStudent(savedStudent);
+ 			 CurrentUserController.setStudent(savedStudent);
 	 		 if(savedStudent.getPassword().equalsIgnoreCase(student.getPassword())) {
 	 			return "redirect:/student/dashboard";
 	 		 }
@@ -70,7 +68,7 @@ public class LoginController {
  	public String loginAdmin(@ModelAttribute("admin") Admin admin) {
  		Admin savedAdmin = adminRepository.findByusername(admin.getUsername());
  		if(savedAdmin != null) {
- 			ContextController.setAdmin(savedAdmin);
+ 			CurrentUserController.setAdmin(savedAdmin);
  			if(savedAdmin.getPassword().equalsIgnoreCase(admin.getPassword())) {
  				return "redirect:/admin/dashboard";
  			}
@@ -83,7 +81,7 @@ public class LoginController {
  	public String loginTeacher(@ModelAttribute("teacher") Teacher teacher) {
 		Teacher savedTeacher = teacherService.findTeacherByUsername(teacher.getUsername());
 		if(savedTeacher != null) {
-			ContextController.setTeacher(savedTeacher);
+			CurrentUserController.setTeacher(savedTeacher);
 			if(savedTeacher.getPassword().equalsIgnoreCase(teacher.getPassword())) {
  				return "redirect:/teacher/dashboard";
  			}

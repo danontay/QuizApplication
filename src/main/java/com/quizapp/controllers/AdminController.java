@@ -2,6 +2,8 @@ package com.quizapp.controllers;
 
 import java.util.List;
 
+import com.quizapp.models.Department;
+import com.quizapp.repositories.DepartmentRepository;
 import com.quizapp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,14 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.quizapp.dto.UserDTO;
 import com.quizapp.models.Admin;
 import com.quizapp.models.Student;
 import com.quizapp.models.Teacher;
-import com.quizapp.repositories.AdminRepository;
-import com.quizapp.repositories.StudentRepository;
 
 @Controller
 public class AdminController {
@@ -31,12 +30,15 @@ public class AdminController {
 	@Autowired
 	private TeacherServiceImpl teacherService;
 
+	@Autowired
+	DepartmentRepository departmentRepository;
+
 	@GetMapping("/admin/dashboard")
 	public String showAdminDashboard(Model model) {
 		List<Student> students = studentService.getAllStudents();
 		List<Admin> admins = adminService.getAllAdmins();
 		List<Teacher> teachers = teacherService.getAllTeachers();
-		model.addAttribute("admin", ContextController.getAdmin());
+		model.addAttribute("admin", CurrentUserController.getAdmin());
 		model.addAttribute("students", students);
 		model.addAttribute("admins", admins);
 		model.addAttribute("teachers", teachers);
@@ -46,9 +48,34 @@ public class AdminController {
 	@GetMapping("/admin/users")
 	public String showAddUsersPage(Model model) {
 		UserDTO userDTO = new UserDTO();
-		model.addAttribute("admin", ContextController.getAdmin());
+		model.addAttribute("admin", CurrentUserController.getAdmin());
 		model.addAttribute("userDto", userDTO);
 		return "admin-add-user";
+	}
+
+	@GetMapping("/admin/departments")
+	public String showDepatmentsPage(Model model) {
+		UserDTO userDTO = new UserDTO();
+		List<Department> departments = departmentRepository.findAll();
+//		List<Student> students = studentService.getAllStudents();
+//		List<Admin> admins = adminService.getAllAdmins();
+//		List<Teacher> teachers = teacherService.getAllTeachers();
+		model.addAttribute("admin", CurrentUserController.getAdmin());
+		model.addAttribute("departments", departments);
+//		model.addAttribute("admins", admins);
+//		model.addAttribute("teachers", teachers);
+
+		model.addAttribute("admin", CurrentUserController.getAdmin());
+		model.addAttribute("userDto", userDTO);
+		return "admin-department-list";
+	}
+
+	@GetMapping("/admin/faculties")
+	public String showFacultiesPage(Model model) {
+		UserDTO userDTO = new UserDTO();
+		model.addAttribute("admin", CurrentUserController.getAdmin());
+		model.addAttribute("userDto", userDTO);
+		return "admin-faculties-list";
 	}
 	
 	@GetMapping("/admin/edit/{id}")

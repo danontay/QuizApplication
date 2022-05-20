@@ -8,7 +8,7 @@ import com.quizapp.models.Quiz;
 import com.quizapp.models.Session;
 import com.quizapp.models.Student;
 import com.quizapp.models.Teacher;
-public class ContextController {
+public class CurrentUserController {
 
 	public static Student student;
 	public static Admin admin;
@@ -21,31 +21,31 @@ public class ContextController {
 		return admin;
 	}
 	public static void setAdmin(Admin admin) {
-		ContextController.admin = admin;
+		CurrentUserController.admin = admin;
 	}
 	public static Student getStudent() {
 		return student;
 	}
 	public static void setStudent(Student student) {
-		ContextController.student = student;
+		CurrentUserController.student = student;
 	}
 	public static Session getSession() {
 		return session;
 	}
 	public static void setSession(Session session) {
-		ContextController.session = session;
+		CurrentUserController.session = session;
 	}
 	public static Quiz getQuiz() {
 		return quiz;
 	}
 	public static void setQuiz(Quiz quiz) {
-		ContextController.quiz = quiz;
+		CurrentUserController.quiz = quiz;
 	}
 	public static Teacher getTeacher() {
 		return teacher;
 	}
 	public static void setTeacher(Teacher teacher) {
-		ContextController.teacher = teacher;
+		CurrentUserController.teacher = teacher;
 	}
 	
 	

@@ -1,4 +1,4 @@
-package com.quizapp.controllers;
+package com.quizapp.models;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

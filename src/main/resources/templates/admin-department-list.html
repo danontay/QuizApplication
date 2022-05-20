@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>All questions - List</title>
+    <title>Admin</title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -23,6 +23,7 @@
     <!-- Custom styles for this page -->
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+
 </head>
 
 <body id="page-top">
@@ -35,9 +36,7 @@
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-
-
-            <div class="sidebar-brand-text mx-3">University</div>
+            <div class="sidebar-brand-text mx-3">University<sup></sup></div>
         </a>
         <br>
         <!-- Divider -->
@@ -45,8 +44,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link"
-               th:href="@{/teacher/dashboard}">
+            <a class="nav-link" href="/admin/dashboard">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -58,33 +56,33 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Teacher Actions
+            Admin Actions
         </div>
 
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link"
-               th:href="@{/teacher/question}"
-            >
+            <a class="nav-link" href="/admin/users">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Add Questions</span></a>
+                <span>Add Users</span></a>
         </li>
 
+        <!-- Department List-->
         <li class="nav-item">
-            <a class="nav-link"
-               th:href="@{/teacher/questions/list}"
-            >
+            <a class="nav-link" href="/admin/departments" >
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Questions List</span></a>
+                Department List
+            </a>
         </li>
+
+        <!-- Faculty List-->
         <li class="nav-item">
-            <a class="nav-link"
-               th:href="@{/teacher/schedule/list}"
-            >
+            <a class="nav-link" href="/admin/faculties">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Schedule</span></a>
+                Faculty List
+            </a>
         </li>
+
         <!-- Nav Item - logout -->
         <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -166,12 +164,13 @@
                     <div class="topbar-divider d-none d-sm-block"></div>
 
                     <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
+                    <li class="nav-item dropdown no-arrow" th:object="${admin}">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                                      th:text="${teacher.firstName}"
-                                ></span>
+                                      th:text="${admin.firstName}">
+
+                                </span>
                             <img class="img-profile rounded-circle"
                                  src="/img/undraw_profile.svg">
                         </a>
@@ -180,7 +179,7 @@
                              aria-labelledby="userDropdown">
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <a class="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>
@@ -196,39 +195,58 @@
             <div class="container-fluid">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Teacher Schedule</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Admin Dashboard</h1>
 
                 </div>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">All Users List</h6>
+                        <div th:if="${param.adminerror}">
+                            <h6 class="m-0 font-weight-bold text-danger">At least one Admin should be active!</h6>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Subject Name</th>
-                                    <th>Date</th>
-                                    <th>Room</th>
-                                    <th>Group Name</th>
-                                    <th>Teacher first name</th>
-                                    <th>Teacher last name</th>
+                                    <th>Username</th>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Modify</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="schedule : ${schedules}">
 
-                                    <td th:text="${schedule.subjectName}"></td>
-                                    <td th:text="${schedule.date.getTime()}"></td>
-                                    <td th:text="${schedule.room}"></td>
-                                    <td th:text="${schedule.groupName}"></td>
-                                    <td th:text="${schedule.firstName}"></td>
-                                    <td th:text="${schedule.lastName}"></td>
+                                <tr th:each="student: ${students}">
+                                    <td th:text="${student.username}"></td>
+                                    <td th:text="${student.firstName}"></td>
+                                    <td th:text="${student.role}"></td>
+                                    <td>
+                                        <a th:href="@{/student/edit/{id}(id=${student.id})}" class="btn btn-primary">Update</a>
+                                        <a th:href="@{/student/delete/{id}(id=${student.id})}" class="btn btn-danger">Delete</a>
+                                    </td>
                                 </tr>
-
+                                <tr th:each="admin: ${admins}">
+                                    <td th:text="${admin.username}"></td>
+                                    <td th:text="${admin.firstName}"></td>
+                                    <td th:text="${admin.role}"></td>
+                                    <td>
+                                        <a th:href="@{/admin/edit/{id}(id=${admin.id})}" class="btn btn-primary" >Update</a>
+                                        <a th:href="@{/admin/delete/{id}(id=${admin.id})}" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr th:each="teacher: ${teachers}">
+                                    <td th:text="${teacher.username}"></td>
+                                    <td th:text="${teacher.firstName}"></td>
+                                    <td th:text="${teacher.role}"></td>
+                                    <td>
+                                        <a th:href="@{/teacher/edit/{id}(id=${teacher.id})}" class="btn btn-primary" >Update</a>
+                                        <a th:href="@{/teacher/delete/{id}(id=${teacher.id})}" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
 
 
                                 </tbody>
@@ -247,7 +265,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2020</span>
+                    <span>University</span>
                 </div>
             </div>
         </footer>
@@ -283,6 +301,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor/jquery/jquery.min.js"></script>
